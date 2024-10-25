@@ -1,0 +1,17 @@
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    restart: "unless-stopped"
+    networks:
+      - arrs
+    ports:
+      - "8086:8080" # this is probably already mapped to something else
+    volumes:
+      - $DOCKERDIR/appdata/sabnzbd:/config
+      - $DATADIR/usenet:/downloads
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      TZ: $TZ
+      PUID: $PUID
+      PGID: $PGID

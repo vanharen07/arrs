@@ -1,0 +1,17 @@
+services:
+  nzbhydra:
+    image: lscr.io/linuxserver/nzbhydra2:latest
+    container_name: nzbhydra
+    restart: "unless-stopped"
+    networks:
+      - nzbhydra
+    ports:
+      - "5076:5076"
+    volumes:
+      - $DOCKERDIR/appdata/nzbhydra:/config
+      - $DATADIR/usenet
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      TZ: $TZ
+      PUID: $PUID
+      PGID: $PGID
