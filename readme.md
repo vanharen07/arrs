@@ -1,9 +1,9 @@
 List of variables declared in .env
 
-PUID=
-PGID=
-TZ=
-USERDIR=
-DATADIR=
-HOSTNAME=
-DOCKERDIR
+\nPUID=
+\nPGID=
+\nTZ=
+\nUSERDIR=
+\nDATADIR=
+\nHOSTNAME=
+\nDOCKERDIR
