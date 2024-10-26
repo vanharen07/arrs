@@ -6,8 +6,8 @@ services:
     networks:
       - nzbhydra
       - arrs
-    ports:
-      - "6969:6969"
+    #ports:
+    #  - "6969:6969"
     volumes:
       - $DOCKERDIR/appdata/whisparr:/config
       - $DATADIR:/data
@@ -16,3 +16,5 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - swag=enable

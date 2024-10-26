@@ -5,8 +5,8 @@ services:
     restart: "unless-stopped"
     networks:
       - arrs
-    ports:
-      - "8086:8080" # this is probably already mapped to something else
+    #ports:
+    #  - "8086:8080" # this is probably already mapped to something else
     volumes:
       - $DOCKERDIR/appdata/sabnzbd:/config
       - $DATADIR/usenet:/downloads
@@ -15,3 +15,5 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - swag=enable

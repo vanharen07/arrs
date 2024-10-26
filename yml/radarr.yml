@@ -6,8 +6,8 @@ services:
     networks:
       - nzbhydra
       - arrs
-    ports:
-      - "7878:7878"
+    #ports:
+    #  - "7878:7878"
     volumes:
       - $DOCKERDIR/appdata/radarr:/config
       - $DATADIR:/data
@@ -16,3 +16,5 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - swag=enable

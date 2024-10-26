@@ -6,8 +6,8 @@ services:
     networks:
       - nzbhydra
       - arrs
-    ports:
-      - "8989:8989"
+    #ports:
+    #  - "8989:8989"
     volumes:
       - $DOCKERDIR/appdata/sonarr:/config
       - $DATADIR:/data/ 
@@ -16,3 +16,5 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - swag=enable

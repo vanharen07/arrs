@@ -6,8 +6,8 @@ services:
     networks:
       - nzbhydra
       - arrs
-    ports:
-      - "8787:8787"
+    #ports:
+    #  - "8787:8787"
     volumes:
       - $DOCKERDIR/appdata/readarr:/config
       - $DATADIR:/data
@@ -15,4 +15,6 @@ services:
     environment:
       TZ: $TZ
       PUID: $PUID
-      PGID: $PGID      
+      PGID: $PGID   
+    labels:
+      - swag=enable

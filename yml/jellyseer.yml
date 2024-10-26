@@ -6,11 +6,13 @@ services:
     networks:
      - jellyfin
      - arrs
-    ports:
-      - "5055:5055"
+    #ports:
+    #  - "5055:5055"
     volumes:
       - $DOCKERDIR/appdata/jellyseer:/app/config
     environment:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - swag=enable

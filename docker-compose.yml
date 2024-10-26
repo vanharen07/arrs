@@ -6,6 +6,9 @@ networks:
   arrs:
   jellyfin:
 include:
+#### Core
+  - yml/swag.yml
+  - yml/dockerproxy.yml
 #### Arrs
   - yml/radarr.yml
   - yml/sonarr.yml
