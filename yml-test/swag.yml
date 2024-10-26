@@ -1,0 +1,66 @@
+services:
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      PUID: $PUID
+      PGID: $PGID
+      TZ: $TZ
+      URL: $URL
+      SUBDOMAINS: wildcard
+      VALIDATION: dns
+      DNSPLUGIN: cloudflare
+      DOCKER_MODS: linuxserver/mods:swag-auto-proxy|linuxserver/mods:universal-docker|linuxserver/mods:universal-cloudflared
+      DOCKER_HOST: dockerproxy
+      CF_ZONE_ID: $CF_ZONE_ID
+      CF_ACCOUNT_ID: $CF_ACCOUNT_ID
+      CF_API_TOKEN: $CF_API_TOKEN
+      CF_TUNNEL_NAME: example2
+      CF_TUNNEL_PASSWORD: $CF_TUNNEL_PASSWORD
+      CF_TUNNEL_CONFIG: |
+        ingress:
+          - hostname: $URL
+            service: https://$URL
+          - hostname: "*.$URL"
+            service: https://$URL
+          - service: http_status:404
+    extra_hosts:
+      - $URL:127.0.0.1
+    volumes:
+      - $DOCKERDIR/appdata/swag:/config
+    restart: unless-stopped
+  dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy
+    container_name: dockerproxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1
+      - POST=0
+    restart: unless-stopped
+  overseerr:
+    image: lscr.io/linuxserver/overseerr
+    container_name: overseerr
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      -  $DOCKERDIR/appdata/overseerr:/config
+    labels:
+      - swag=enable
+    restart: unless-stopped
+  tautulli:
+    image: lscr.io/linuxserver/tautulli
+    container_name: tautulli
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID 
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/tautulli:/config
+    labels:
+      - swag=enable
+    restart: unless-stopped
