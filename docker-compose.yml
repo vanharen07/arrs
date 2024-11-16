@@ -2,9 +2,9 @@ name: media-stack
 
 #### Networks
 networks:
-  nzbhydra:
-  arrs:
-  jellyfin:
+  dockerproxy:
+  swag:
+    driver: bridge
 include:
 #### Core
   - yml/swag.yml
@@ -13,13 +13,14 @@ include:
   - yml/radarr.yml
   - yml/sonarr.yml
   - yml/nzbhydra.yml
-  - yml/readarr.yml
-  - yml/lidarr.yml
+  #- yml/readarr.yml
+  #- yml/lidarr.yml
   - yml/bazarr.yml
-  # - yml/whisparr.yml ## commented out because I personally don't use it
+  # - yml/whisparr.yml 
 #### Jellyfin
   - yml/jellyfin.yml
   - yml/jellyseer.yml
+  - yml/jellystat.yml
 #### Downloaders
   - yml/sabnzbd.yml
 #### Utilities

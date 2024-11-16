@@ -1,0 +1,35 @@
+services:
+  jellystat-db:
+    image: postgres:15.2
+    container_name: jellystat-db
+    environment:
+      POSTGRES_DB: 'jfstat'
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    volumes:
+      - $DOCKERDIR/appdata/jellystat/postgres-data:/var/lib/postgresql/data # Mounting the volume
+    networks:
+      - swag
+    #labels:
+      #- "com.centurylinklabs.watchtower.enable=true"
+    restart: unless-stopped
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    container_name: jellystat
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: $JWT_SECRET
+    networks:
+      - swag
+    ports:
+      - "3000:3000" #Server Port
+    volumes:
+      - $DOCKERDIR/appdata/jellystat/backup-data:/app/backend/backup-data # Mounting the volume
+    depends_on:
+      - jellystat-db
+    restart: unless-stopped
+    #labels:
+#      - "com.centurylinklabs.watchtower.enable=true"

@@ -4,17 +4,17 @@ services:
     container_name: sonarr
     restart: "unless-stopped"
     networks:
-      - nzbhydra
-      - arrs
-    #ports:
-    #  - "8989:8989"
+      - swag
+    ports:
+      - "8989:8989"
     volumes:
       - $DOCKERDIR/appdata/sonarr:/config
-      - $DATADIR:/data/ 
+      - $DATADIR:/data/
       - "/etc/localtime:/etc/localtime:ro"
     environment:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
     labels:
-      - swag=enable
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

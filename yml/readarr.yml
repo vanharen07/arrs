@@ -4,8 +4,7 @@ services:
     container_name: readarr
     restart: "unless-stopped"
     networks:
-      - nzbhydra
-      - arrs
+      - swag
     #ports:
     #  - "8787:8787"
     volumes:
@@ -17,4 +16,5 @@ services:
       PUID: $PUID
       PGID: $PGID   
     labels:
-      - swag=enable
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

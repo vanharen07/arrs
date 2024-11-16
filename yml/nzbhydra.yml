@@ -1,10 +1,10 @@
 services:
   nzbhydra:
     image: lscr.io/linuxserver/nzbhydra2:latest
-    container_name: nzbhydra
+    container_name: nzbhydra2
     restart: "unless-stopped"
     networks:
-      - nzbhydra
+      - swag
     #ports:
     #  - "5076:5076"
     volumes:
@@ -16,4 +16,5 @@ services:
       PUID: $PUID
       PGID: $PGID
     labels:
-      - swag=enable
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

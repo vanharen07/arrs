@@ -4,10 +4,9 @@ services:
     container_name: jellyseerr
     restart: "unless-stopped"
     networks:
-     - jellyfin
-     - arrs
-    #ports:
-    #  - "5055:5055"
+    - swag
+    ports:
+      - "5055:5055"
     volumes:
       - $DOCKERDIR/appdata/jellyseer:/app/config
     environment:
@@ -15,4 +14,5 @@ services:
       PUID: $PUID
       PGID: $PGID
     labels:
-      - swag=enable
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

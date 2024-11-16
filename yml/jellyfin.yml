@@ -4,9 +4,9 @@ services:
     container_name: jellyfin
     restart: "unless-stopped"
     networks:
-      - jellyfin
-    #ports: 
-    #  - "8096:8096"
+      - swag
+    ports: 
+      - "8096:8096"
     devices:
       - /dev/dri:/dev/dri # hardware transcoding
     volumes:
@@ -17,5 +17,7 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+      DOCKER_MODS: ghcr.io/intro-skipper/intro-skipper-docker-mod
     labels:
-      - swag=enable
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

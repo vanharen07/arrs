@@ -4,8 +4,7 @@ services:
     container_name: whisparr
     restart: "unless-stopped"
     networks:
-      - nzbhydra
-      - arrs
+      - swag
     #ports:
     #  - "6969:6969"
     volumes:
@@ -17,4 +16,5 @@ services:
       PUID: $PUID
       PGID: $PGID
     labels:
-      - swag=enable
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"
