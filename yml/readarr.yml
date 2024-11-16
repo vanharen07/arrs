@@ -4,10 +4,9 @@ services:
     container_name: readarr
     restart: "unless-stopped"
     networks:
-      - nzbhydra
-      - arrs
-    ports:
-      - "8787:8787"
+      - swag
+    #ports:
+    #  - "8787:8787"
     volumes:
       - $DOCKERDIR/appdata/readarr:/config
       - $DATADIR:/data
@@ -15,4 +14,7 @@ services:
     environment:
       TZ: $TZ
       PUID: $PUID
-      PGID: $PGID      
+      PGID: $PGID   
+    labels:
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

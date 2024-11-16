@@ -4,9 +4,9 @@ services:
     container_name: bazarr
     restart: "unless-stopped"
     networks:
-      - arrs
-    ports:
-      - "6767:6767"
+      - swag
+    #ports:
+    #  - "6767:6767"
     volumes:
       - $DOCKERDIR/appdata/bazarr:/config
       - $DATADIR/media:/data/media
@@ -15,3 +15,6 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

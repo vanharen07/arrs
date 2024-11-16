@@ -1,0 +1,41 @@
+services:
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    ports:
+      - 81:81
+    networks: 
+      - swag
+    # dockerproxy:
+    cap_add:
+      - NET_ADMIN
+    environment:
+      PUID: $PUID
+      PGID: $PGID
+      TZ: $TZ
+      URL: $URL
+      SUBDOMAINS: wildcard
+      VALIDATION: dns
+      DNSPLUGIN: cloudflare
+      DOCKER_MODS: linuxserver/mods:swag-auto-proxy|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:universal-docker|linuxserver/mods:universal-cloudflared|linuxserver/mods:swag-dashboard
+      #DOCKER_HOST: dockerproxy
+      CF_ZONE_ID: $CF_ZONE_ID
+      CF_ACCOUNT_ID: $CF_ACCOUNT_ID
+      CF_API_TOKEN: $CF_API_TOKEN
+      CF_TUNNEL_NAME: media-server
+      CF_TUNNEL_PASSWORD: $CF_TUNNEL_PASSWORD
+      CF_TUNNEL_CONFIG: |
+        ingress:
+          - hostname: $URL
+            service: https://$URL
+          - hostname: "*.$URL"
+            service: https://$URL
+          - service: http_status:404
+    extra_hosts:
+      - $URL:127.0.0.1
+    volumes:
+      - $DOCKERDIR/appdata/swag:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"

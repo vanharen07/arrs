@@ -4,8 +4,7 @@ services:
     container_name: jellyseerr
     restart: "unless-stopped"
     networks:
-     - jellyfin
-     - arrs
+    - swag
     ports:
       - "5055:5055"
     volumes:
@@ -14,3 +13,6 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"

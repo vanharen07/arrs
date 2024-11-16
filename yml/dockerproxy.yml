@@ -2,9 +2,13 @@ services:
   dockerproxy:
     image: ghcr.io/tecnativa/docker-socket-proxy
     container_name: dockerproxy
+    networks: 
+      dockerproxy:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - CONTAINERS=1
       - POST=0
     restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"

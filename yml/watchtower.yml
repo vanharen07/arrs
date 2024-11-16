@@ -1,10 +1,16 @@
 services:
   watchtower:
     image: containrrr/watchtower
+    container_name: watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - $DOCKERDIR/appdata/watchtower/config.json:/config.json
       - "/etc/localtime:/etc/localtime:ro"
     environment:
+      - TZ=$TZ
       - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_SCHEDULE="@every 12h"
+      - WATCHTOWER_SCHEDULE=0 0 * * * *
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+      - WATCHTOWER_LABEL_ENABLE=true
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"

@@ -4,10 +4,9 @@ services:
     container_name: lidarr
     restart: "unless-stopped"
     networks:
-      - nzbhydra
-      - arrs
-    ports:
-      - "8686:8686"
+      - swag
+    #ports:
+    #  - "8686:8686"
     volumes:
       - $DOCKERDIR/appdata/lidarr:/config
       - $DATADIR:/data
@@ -16,3 +15,6 @@ services:
       TZ: $TZ
       PUID: $PUID
       PGID: $PGID
+    labels:
+      - "swag=enable"
+      - "com.centurylinklabs.watchtower.enable=true"
